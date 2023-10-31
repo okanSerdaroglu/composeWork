@@ -26,6 +26,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 /**
  * In this card there is an image in a box and another box in it.
  * In this another box there is a text but we can not see it clearly, that's why
@@ -115,21 +116,38 @@ fun ImageCardWithTopMessage(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(200.dp),
         shape = RoundedCornerShape(8.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Box(
-            modifier
-                .height(300.dp)
-                .fillMaxWidth(0.5f),
+            modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painter,
                 contentDescription = contentDescription,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            Box(modifier = Modifier.fillMaxSize().background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.Transparent,
+                        Color.Black
+                    ),
+                    startY = -210.0f
+                )
+            ))
+            Text(
+                text = title,
+                style = TextStyle(color = Color.White),
+                fontSize = 16.sp,
+                modifier = Modifier.align(Alignment.TopStart)
             )
         }
     }
 }
+
