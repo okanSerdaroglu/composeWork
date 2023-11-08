@@ -3,13 +3,13 @@ package com.example.composework
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.example.composework.ui.theme.ComposeWorkTheme
+import kotlinx.coroutines.delay
 
 /**
  *  firstly we need to understand what a so-called side effect is,
@@ -21,8 +21,12 @@ import com.example.composework.ui.theme.ComposeWorkTheme
  *  very bad practice. Image that it can be a network call, and how a bad practice
  *  to call a network method in every recomposition.
  *  -----
- *
- *
+ *   LaunchedEffect
+ *   it is most common use Effect Handler. As you can see there are two different parameters
+ *   the first one is key which is state, second one is a coroutine scope. When key ( state ) changes
+ *   coroutine scope cancels and relaunch.
+ *   -----
+
  */
 
 class MainActivity : ComponentActivity() {
@@ -34,9 +38,9 @@ class MainActivity : ComponentActivity() {
                 mutableStateOf("")
             }
             ComposeWorkTheme {
-                Button(onClick = { text += "#" }) {
-                    i++
-                    Text(text = text)
+                LaunchedEffect(key1 = text){
+                    delay(1000L)
+                    println("the text is $text")
                 }
             }
         }
